@@ -75,6 +75,36 @@ void Cat::increaseHunger(int cant) {
 
 //                             :3
 
+Mission::Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL)
+    : name(n), difficulty(diff), rewardMoney(money), rewardChaos(chaos),
+      hungerCost(hunger), minEvilness(minE), minLoyalty(minL) {}
+
+bool Mission::attempt(Cat& c) const {
+    if (c.getEvilness() >= minEvilness && c.getLoyalty() >= minLoyalty) {
+        c.increaseHunger(hungerCost);
+        cout << c.getName() << " successfully completed mission: " << name << "!\n"; //
+        return true;
+    } else {
+        c.increaseHunger(hungerCost / 2);
+        cout << c.getName() << " failed mission: " << name << "...\n"; //
+        return false;
+    }
+}
+
+
+ostream& operator<<(ostream& os, const Mission& m) {
+    os << "Mission: " << m.name
+       << " | Difficulty: " << m.difficulty
+       << " | Reward Money: " << m.rewardMoney
+       << " | Chaos: " << m.rewardChaos
+       << " | Hunger Cost: " << m.hungerCost
+       << " | Requires Evil >= " << m.minEvilness
+       << " & Loyalty >= " << m.minLoyalty;
+    return os;
+}
+
+//                                           ;3
+
 CatOverlord::CatOverlord() : money(0), chaosPoints(0), actionPoints(6) {}
 CatOverlord::CatOverlord(int money, int chaos) : money(money), chaosPoints(chaos), actionPoints(6) {}
 
@@ -116,13 +146,16 @@ void CatOverlord::nextDay() {
         cats[i].increaseHunger(DAILY_HUNGER_INCREASE);
 }
 
-void CatOverlord::sendOnMission(int index, int missionDifficulty) {
-    if (actionPoints > 2 && index >= 0 && index < (int)cats.size()) {
-        if (cats[index].getEvilness() > missionDifficulty) {
-            money += missionDifficulty * 2;
-            chaosPoints += missionDifficulty;
+void CatOverlord::sendOnMission(int index, const Mission& m) {
+    if (actionPoints > 1 && index >= 0 && index < (int)cats.size()) {
+
+        if (m.attempt(cats[index])) {
+            money += m.getRewardMoney();
+            chaosPoints += m.getRewardChaos();
         }
-        actionPoints -= 3;
+
+        cats[index].increaseHunger(m.getHungerCost());
+        actionPoints -= 2;
     }
 }
 
@@ -137,3 +170,8 @@ ostream& operator<<(ostream& os, const CatOverlord& o) {
     }
     return os;
 }
+
+//                                  :3
+
+
+
