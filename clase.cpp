@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Clase.h"
+#include "clase.h"
 #include <string>
 using namespace std;
 

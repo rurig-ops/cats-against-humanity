@@ -48,9 +48,10 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
+set(MAIN_EXECUTABLE_NAME oop)
+
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
-        clase.h
         clase.cpp
 )
 
