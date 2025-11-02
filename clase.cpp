@@ -227,3 +227,88 @@ void CatOverlord::printCats() const {
              << " | Loyalty: " << c.getLoyalty() << "\n";
     }
 }
+
+void CatOverlord::feedCatInteractive() {
+    if (actionPoints <= 0) {
+        cout << "Not enough AP\n";
+        return;
+    }
+    int index, amount;
+    cout << "Select cat index to feed: ";
+    cin >> index;
+    if (index < 0 || index >= (int)cats.size()) {
+        cout << "Invalid index!\n";
+        return;
+    }
+    cout << "Amount to feed: ";
+    cin >> amount;
+    if (amount > money) {
+        cout << "Not enough money\n";
+        return;
+    }
+    feedCat(index, amount);
+}
+
+void CatOverlord::encourageCatInteractive() {
+    if (actionPoints <= 0) {
+        cout << "Not enough AP\n";
+        return;
+    }
+    int index, amount;
+    cout << "Select cat index to encourage: ";
+    cin >> index;
+    if (index < 0 || index >= (int)cats.size()) {
+        cout << "Invalid index!\n";
+        return;
+    }
+    cout << "Amount to increase loyalty: ";
+    cin >> amount;
+    encourageCat(index, amount);
+}
+
+void CatOverlord::trainCatEvilInteractive() {
+    if (actionPoints <= 0) {
+        cout << "Not enough AP\n";
+        return;
+    }
+    int index, amount;
+    cout << "Select cat index to train evilness: ";
+    cin >> index;
+    if (index < 0 || index >= (int)cats.size()) {
+        cout << "Invalid index!\n";
+        return;
+    }
+    cout << "Amount to train evilness: ";
+    cin >> amount;
+    trainCatEvil(index, amount);
+}
+
+void CatOverlord::sendOnMissionInteractive(Humanity& humans) {
+    if (actionPoints < 2) {
+        cout << "Not enough AP to send a cat on a mission!\n";
+        return;
+    }
+    int index, missionChoice;
+    cout << "Select cat index to send on mission: ";
+    cin >> index;
+    if (index < 0 || index >= (int)cats.size()) {
+        cout << "Invalid index!\n";
+        return;
+    }
+    cout << "Select mission:\n1. Bank Heist\n2. Steal Pizza\n3. Funny Compilation\n> ";
+    cin >> missionChoice;
+
+    Mission bankHeist("Steal Socks", 15, 5, 30, 25, 35, 10, 0, Mission::EVIL);
+    Mission pizzaSteal("Infiltrate the government", 45, 40, 5, 5, 66, 50, 0, Mission::EVIL);
+    Mission funnyCompilation("Funny Cat Compilation", 5, 0, 0, 5, 0, 0, 20, Mission::PR);
+
+    switch (missionChoice) {
+        case 1: sendOnMission(index, bankHeist, humans); break;
+        case 2: sendOnMission(index, pizzaSteal, humans); break;
+        case 3: sendOnMission(index, funnyCompilation, humans); break;
+        default: cout << "Invalid mission choice!\n"; break;
+    }
+}
+
+
+

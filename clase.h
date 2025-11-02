@@ -105,8 +105,14 @@ public:
     void nextDay();
     bool sendOnMission(int index, const Mission& m, Humanity& humans);
     void trainCatEvil(int index, int cant);
+
     void printStatus() const;
     void printCats() const;
+
+    void feedCatInteractive();
+    void encourageCatInteractive();
+    void trainCatEvilInteractive();
+    void sendOnMissionInteractive(Humanity& humans);
 };
 
 #endif
