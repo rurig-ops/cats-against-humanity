@@ -8,11 +8,17 @@ int main() {
     Cat cat3("Lucius", 30, 90, 20, 90);
     Cat cat4("Sebi");
 
+    Cat copyCat = cat1; // constructor copiere
+    Cat assignedCat("Temp");
+    assignedCat = cat2;  // operator=
+
     CatOverlord overlord;
     overlord.addCat(cat1);
     overlord.addCat(cat2);
     overlord.addCat(cat3);
     overlord.addCat(cat4);
+    overlord.addCat(copyCat);
+    overlord.addCat(assignedCat);
 
     Humanity humans;
 
