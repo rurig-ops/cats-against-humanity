@@ -23,11 +23,11 @@ public:
     Cat& operator=(const Cat& other);
     friend ostream& operator<<(ostream& os, const Cat& c);
 
-    const string& getName() const;
-    int getEvilness() const;
-    int getCuteness() const;
-    int getHunger() const;
-    int getLoyalty() const;
+    [[nodiscard]]const string& getName() const;
+    [[nodiscard]]int getEvilness() const;
+    [[nodiscard]]int getCuteness() const;
+    [[nodiscard]]int getHunger() const;
+    [[nodiscard]]int getLoyalty() const;
 
     void feed(int cant);
     void trainEvil(int cant);
@@ -48,7 +48,7 @@ public:
     void increaseSuspicion(int val);
     void decreaseSuspicion(int val);
 
-    bool isGameOver() const;
+    [[nodiscard]]bool isGameOver() const;
 
     friend ostream& operator<<(ostream& os, const Humanity& h);
 };
@@ -73,14 +73,14 @@ private:
 public:
     Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, int minC, MissionType t);
 
-    const string& getName() const { return name; }
-    int getRewardMoney() const { return rewardMoney; }
-    int getRewardChaos() const { return rewardChaos; }
-    int getHungerCost() const { return hungerCost; }
-    int getDifficulty() const { return difficulty; }
-    MissionType getType() const { return type; }
+    [[nodiscard]]const string& getName() const { return name; }
+    [[nodiscard]]int getRewardMoney() const { return rewardMoney; }
+    [[nodiscard]]int getRewardChaos() const { return rewardChaos; }
+    [[nodiscard]]int getHungerCost() const { return hungerCost; }
+    [[nodiscard]]int getDifficulty() const { return difficulty; }
+    [[nodiscard]]MissionType getType() const { return type; }
 
-    bool attempt(const Cat& c) const;
+    [[nodiscard]]bool attempt(const Cat& c) const;
 
     friend ostream& operator<<(ostream& os, const Mission& m);
 };
