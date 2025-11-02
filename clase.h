@@ -118,7 +118,6 @@ public:
 
     bool checkEvilnessGameOver();
 
-    void calmCat(int index, int amount);
     void calmCatInteractive();
 };
 

@@ -9,23 +9,23 @@ int main() {
     Cat cat4("Sebi");
 
     // Constructor copiere și operator=
-    Cat copyCat = cat1;
-    Cat assignedCat("Temp");
-    assignedCat = cat2;
+    //Cat copyCat = cat1;
+   // Cat assignedCat("Temp");
+    //assignedCat = cat2;
 
     CatOverlord overlord;
     overlord.addCat(cat1);
     overlord.addCat(cat2);
     overlord.addCat(cat3);
     overlord.addCat(cat4);
-    overlord.addCat(copyCat);
-    overlord.addCat(assignedCat);
+   // overlord.addCat(copyCat);
+   // overlord.addCat(assignedCat);
 
     Humanity humans;
 
     bool gameEnd = false;
     while (!gameEnd) {
-        cout << "\n=== STATUS ===\n";
+        cout << "\n stats \n";
         overlord.printStatus();
         overlord.sortCatsByEvilness();
         overlord.printCats();
