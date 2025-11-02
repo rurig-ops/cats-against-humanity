@@ -362,6 +362,7 @@ void CatOverlord::calmCatInteractive() {
     cin >> amount;
     if (amount < 0) amount = 0;
 
+    // Scade direct evilness, fără recursie
     cats[index].decreaseEvilness(amount);
 
     cout << cats[index].getName() << " has calmed down. Evilness: "
@@ -369,6 +370,7 @@ void CatOverlord::calmCatInteractive() {
 
     actionPoints--;
 }
+
 
 
 
