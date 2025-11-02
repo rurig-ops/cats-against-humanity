@@ -4,29 +4,30 @@
 #include <string>
 #include <vector>
 #include <ostream>
-
 using namespace std;
+
+//                                        :3
 
 class Cat {
 private:
     string name;
     int evilness;
     int cuteness;
-    int hunger; //0 inseamna nu ii e foame, 100 e lihnit
+    int hunger;
     int loyalty;
 
 public:
     Cat(string n, int e, int c, int h, int l);
-    Cat(const Cat &other); //constructor copiere
+    Cat(const Cat &other);
     ~Cat();
     Cat& operator=(const Cat& other);
     friend ostream& operator<<(ostream& os, const Cat& c);
 
-    [[nodiscard]] string getName() const;
-    [[nodiscard]] int getEvilness() const;
-    [[nodiscard]] int getCuteness() const;
-    [[nodiscard]] int getHunger() const;
-    [[nodiscard]] int getLoyalty() const;
+    string getName() const;
+    int getEvilness() const;
+    int getCuteness() const;
+    int getHunger() const;
+    int getLoyalty() const;
 
     void feed(int cant);
     void trainEvil(int cant);
@@ -35,9 +36,32 @@ public:
     void increaseHunger(int cant);
 };
 
-//                        :3
+//                                           :3
+
+class Humanity {
+private:
+    int suspicion;
+    int maxSuspicion;
+
+public:
+    Humanity(int start = 0, int maxS = 100);
+
+    void increaseSuspicion(int val);
+    void decreaseSuspicion(int val);
+
+    int getSuspicion() const { return suspicion; }
+    int getMaxSuspicion() const { return maxSuspicion; }
+    bool isGameOver() const;
+
+    friend ostream& operator<<(ostream& os, const Humanity& h);
+};
+
+//                                         :3
 
 class Mission {
+public:
+    enum MissionType { EVIL, PR };
+
 private:
     string name;
     int difficulty;
@@ -46,21 +70,24 @@ private:
     int hungerCost;
     int minEvilness;
     int minLoyalty;
+    MissionType type;
 
 public:
-    Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL);
+    Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, MissionType t);
 
-    [[nodiscard]] int getRewardMoney() const { return rewardMoney; }
-    [[nodiscard]] int getRewardChaos() const { return rewardChaos; }
-    [[nodiscard]] int getHungerCost() const { return hungerCost; }
+    [[nodiscard]] string getName() const { return name; }
+    int getRewardMoney() const { return rewardMoney; }
+    int getRewardChaos() const { return rewardChaos; }
+    int getHungerCost() const { return hungerCost; }
+    int getDifficulty() const { return difficulty; }
+    MissionType getType() const { return type; }
 
     bool attempt(Cat& c) const;
 
     friend ostream& operator<<(ostream& os, const Mission& m);
 };
 
-
-//                                 :3
+//                                          :3
 
 class CatOverlord {
 private:
@@ -70,25 +97,18 @@ private:
     int actionPoints;
 
 public:
-    CatOverlord();
-    CatOverlord(int money, int chaos);
-    CatOverlord(const CatOverlord& other);
-    CatOverlord& operator=(const CatOverlord& other);
+    CatOverlord(int startMoney = 50, int startChaos = 10, int startAP = 6);
     friend ostream& operator<<(ostream& os, const CatOverlord& o);
 
     void addCat(const Cat& c);
     void feedCat(int index, int cant);
     void encourageCat(int index, int cant);
     void nextDay();
-    void sendOnMission(int index, const Mission& m);
+    void sendOnMission(int index, const Mission& m, Humanity& humans);
 
-    [[nodiscard]] int getMoney() const;
-    [[nodiscard]] int getChaos() const;
-    [[nodiscard]] int getActionPoints() const;
+    int getMoney() const;
+    int getChaos() const;
+    int getActionPoints() const;
 };
 
-//               :3
-
-
-
-#endif //CLASE_H
+#endif
