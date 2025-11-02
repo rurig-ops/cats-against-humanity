@@ -51,12 +51,6 @@ void Cat::trainEvil(int cant) {
     cout << name << " trained fiendishly. Evilness: " << evilness << endl;
 }
 
-void Cat::pet(int cant) {
-    cuteness += cant;
-    if (cuteness > 100) cuteness = 100;
-    cout << name << " got some pets. Cuteness: " << cuteness << endl;
-}
-
 void Cat::rewardLoyalty(int cant) {
     loyalty += cant;
     if (loyalty > 100) loyalty = 100;
@@ -106,7 +100,7 @@ Mission::Mission(const string& n, int diff, int money, int chaos, int hunger, in
     : name(n), difficulty(diff), rewardMoney(money), rewardChaos(chaos), hungerCost(hunger),
       minEvilness(minE), minLoyalty(minL), minCuteness(minC), type(t) {}
 
-bool Mission::attempt(Cat& c) const {
+bool Mission::attempt(const Cat& c) const {
     if (type == EVIL)
         return c.getEvilness() >= minEvilness && c.getLoyalty() >= minLoyalty;
     else
@@ -132,7 +126,8 @@ void CatOverlord::addCat(const Cat& c) {
 }
 
 void CatOverlord::feedCat(int i, int cant) {
-    if (actionPoints <= 0) return;
+    if (actionPoints <= 0) {cout << "Not enough AP"; return;}
+    if (cant > money) {cout << "Not enough money"; return;}
     cats[i].feed(cant);
     money -= cant;
     actionPoints--;
@@ -195,9 +190,13 @@ void CatOverlord::nextDay() {
         c.increaseHunger(15);
 }
 
-int CatOverlord::getMoney() const { return money; }
-int CatOverlord::getChaos() const { return chaosPoints; }
-int CatOverlord::getActionPoints() const { return actionPoints; }
+void CatOverlord::trainCatEvil(int i, int cant) {
+    if (actionPoints <= 0) {cout << "Not enough AP" << endl; return;}
+    if (cant > money) {cout << "Not enough money" << endl; return;}
+    cats[i].trainEvil(cant);
+    money -= cant;
+    actionPoints--;
+}
 
 ostream& operator<<(ostream& os, const CatOverlord& o) {
     os << "Money: " << o.money << " | Chaos: " << o.chaosPoints

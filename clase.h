@@ -31,7 +31,6 @@ public:
 
     void feed(int cant);
     void trainEvil(int cant);
-    void pet(int cant);
     void rewardLoyalty(int cant);
     void increaseHunger(int cant);
 };
@@ -49,8 +48,6 @@ public:
     void increaseSuspicion(int val);
     void decreaseSuspicion(int val);
 
-    int getSuspicion() const { return suspicion; }
-    int getMaxSuspicion() const { return maxSuspicion; }
     bool isGameOver() const;
 
     friend ostream& operator<<(ostream& os, const Humanity& h);
@@ -83,7 +80,7 @@ public:
     int getDifficulty() const { return difficulty; }
     MissionType getType() const { return type; }
 
-    bool attempt(Cat& c) const;
+    bool attempt(const Cat& c) const;
 
     friend ostream& operator<<(ostream& os, const Mission& m);
 };
@@ -106,10 +103,7 @@ public:
     void encourageCat(int index, int cant);
     void nextDay();
     bool sendOnMission(int index, const Mission& m, Humanity& humans);
-
-    int getMoney() const;
-    int getChaos() const;
-    int getActionPoints() const;
+    void trainCatEvil(int index, int cant);
 };
 
 #endif

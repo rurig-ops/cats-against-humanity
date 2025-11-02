@@ -29,7 +29,7 @@ int main() {
         cout << humans << endl;
 
         cout << "\nChoose action:\n";
-        cout << "1. Feed a cat\n2. Encourage a cat\n3. Send cat on mission\n4. Next day\n5. Quit\n> ";
+        cout << "1. Feed a cat\n2. Encourage a cat\n3. Train cat Evilness\n4. Send cat on mission\n5. Next day\n6. Quit\n> ";
 
         int choice;
         cin >> choice;
@@ -51,6 +51,13 @@ int main() {
                 overlord.encourageCat(index, amount);
                 break;
             case 3:
+                cout << "Select cat index to train evilness: ";
+                cin >> index;
+                cout << "Amount to train evilness: ";
+                cin >> amount;
+                overlord.trainCatEvil(index, amount);
+                break;
+            case 4:
                 cout << "Select cat index to send on mission: ";
                 cin >> index;
                 cout << "Select mission:\n1. Bank Heist\n2. Steal Pizza\n3. Funny Compilation\n> ";
@@ -63,11 +70,11 @@ int main() {
                 else if (missionChoice == 3)
                     gameEnd = overlord.sendOnMission(index, funnyCompilation, humans);
                 break;
-            case 4:
+            case 5:
                 overlord.nextDay();
                 cout << "Day advanced. Action points reset and hunger increased.\n";
                 break;
-            case 5:
+            case 6:
                 gameEnd = true;
                 break;
             default:
