@@ -1,5 +1,6 @@
 #include <iostream>
 #include "clase.h"
+#include <limits>
 using namespace std;
 
 int main() {
@@ -35,6 +36,7 @@ int main() {
              << "5. Next day\n"<< "6. Take cat to yoga\n"<< "7. Quit\n> ";
         int choice;
         cin >> choice;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (choice) {
             case 1:
