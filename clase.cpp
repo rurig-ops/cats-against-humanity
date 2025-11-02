@@ -4,12 +4,12 @@ using namespace std;
 
 //                                    :3
 
-Cat::Cat(string n, int e, int c, int h, int l)
-    : name(n), evilness(e), cuteness(c), hunger(h), loyalty(l) {}
+Cat::Cat(string n, int e, int c, int h, int l) : name(n), evilness(e), cuteness(c), hunger(h), loyalty(l) {}
+
+Cat::Cat(string n):name(n), evilness(25), cuteness(25), hunger(50), loyalty(10){}
 
 //constructor copiere
-Cat::Cat(const Cat &other)
-    : name(other.name), evilness(other.evilness), cuteness(other.cuteness), hunger(other.hunger), loyalty(other.loyalty) {}
+Cat::Cat(const Cat &other) : name(other.name), evilness(other.evilness), cuteness(other.cuteness), hunger(other.hunger), loyalty(other.loyalty) {}
 
 Cat::~Cat() {}
 
@@ -185,7 +185,7 @@ bool CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
 }
 
 void CatOverlord::nextDay() {
-    actionPoints = 6; // reset action points daily
+    actionPoints = 6;
     for (auto &c : cats)
         c.increaseHunger(15);
 }
@@ -280,6 +280,10 @@ void CatOverlord::trainCatEvilInteractive() {
     }
     cout << "Amount to train evilness: ";
     cin >> amount;
+    if (amount > money) {
+        cout << "Not enough money!\n";
+        return;
+    }
     trainCatEvil(index, amount);
 }
 
@@ -298,13 +302,13 @@ void CatOverlord::sendOnMissionInteractive(Humanity& humans) {
     cout << "Select mission:\n1. Bank Heist\n2. Steal Pizza\n3. Funny Compilation\n> ";
     cin >> missionChoice;
 
-    Mission bankHeist("Steal Socks", 15, 5, 30, 25, 35, 10, 0, Mission::EVIL);
-    Mission pizzaSteal("Infiltrate the government", 45, 40, 5, 5, 66, 50, 0, Mission::EVIL);
+    Mission stealSock("Steal Socks", 15, 5, 30, 25, 35, 10, 0, Mission::EVIL);
+    Mission government("Infiltrate the government", 45, 40, 5, 5, 66, 50, 0, Mission::EVIL);
     Mission funnyCompilation("Funny Cat Compilation", 5, 0, 0, 5, 0, 0, 20, Mission::PR);
 
     switch (missionChoice) {
-        case 1: sendOnMission(index, bankHeist, humans); break;
-        case 2: sendOnMission(index, pizzaSteal, humans); break;
+        case 1: sendOnMission(index, stealSock, humans); break;
+        case 2: sendOnMission(index, government, humans); break;
         case 3: sendOnMission(index, funnyCompilation, humans); break;
         default: cout << "Invalid mission choice!\n"; break;
     }

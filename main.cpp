@@ -6,11 +6,13 @@ int main() {
     Cat cat1("Magu", 50, 80, 30, 80);
     Cat cat2("Dracat Mihaita", 80, 20, 60, 50);
     Cat cat3("Lucius", 30, 90, 20, 90);
+    Cat cat4("Sebi");
 
     CatOverlord overlord;
     overlord.addCat(cat1);
     overlord.addCat(cat2);
     overlord.addCat(cat3);
+    overlord.addCat(cat4);
 
     Humanity humans;
 

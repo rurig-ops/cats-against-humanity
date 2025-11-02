@@ -1,9 +1,8 @@
 #ifndef CLASE_H
 #define CLASE_H
 
-#include <string>
+#include <iostream>
 #include <vector>
-#include <ostream>
 using namespace std;
 
 //                                        :3
@@ -18,6 +17,7 @@ private:
 
 public:
     Cat(string n, int e, int c, int h, int l);
+    explicit Cat(string n);
     Cat(const Cat &other);
     ~Cat();
     Cat& operator=(const Cat& other);
