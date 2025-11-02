@@ -25,7 +25,8 @@ int main() {
     bool gameEnd = false;
     while (gameEnd == false) {
         cout << "\n Cat Overlord Status " << endl;
-        cout << overlord << endl;
+        overlord.printStatus();
+        overlord.printCats();
         cout << humans << endl;
 
         cout << "\nChoose action:\n";

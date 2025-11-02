@@ -211,3 +211,19 @@ ostream& operator<<(ostream& os, const CatOverlord& o) {
     }
     return os;
 }
+
+void CatOverlord::printStatus() const {
+    cout << "Money: " << money << " | Chaos: " << chaosPoints
+         << " | AP: " << actionPoints << "\n";
+}
+
+void CatOverlord::printCats() const {
+    for (size_t i = 0; i < cats.size(); i++) {
+        const Cat& c = cats[i];
+        cout << "[" << i << "] " << c.getName()
+             << " | Evil: " << c.getEvilness()
+             << " | Cute: " << c.getCuteness()
+             << " | Hunger: " << c.getHunger()
+             << " | Loyalty: " << c.getLoyalty() << "\n";
+    }
+}

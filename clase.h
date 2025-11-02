@@ -33,6 +33,7 @@ public:
     void trainEvil(int cant);
     void rewardLoyalty(int cant);
     void increaseHunger(int cant);
+
 };
 
 //                                           :3
@@ -104,6 +105,8 @@ public:
     void nextDay();
     bool sendOnMission(int index, const Mission& m, Humanity& humans);
     void trainCatEvil(int index, int cant);
+    void printStatus() const;
+    void printCats() const;
 };
 
 #endif
