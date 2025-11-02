@@ -23,7 +23,7 @@ public:
     Cat& operator=(const Cat& other);
     friend ostream& operator<<(ostream& os, const Cat& c);
 
-    string getName() const;
+    const string& getName() const;
     int getEvilness() const;
     int getCuteness() const;
     int getHunger() const;
@@ -44,7 +44,7 @@ private:
     int maxSuspicion;
 
 public:
-    Humanity(int start = 0, int maxS = 100);
+    explicit Humanity(int start = 0, int maxS = 100);
 
     void increaseSuspicion(int val);
     void decreaseSuspicion(int val);
@@ -75,7 +75,7 @@ private:
 public:
     Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, MissionType t);
 
-    [[nodiscard]] string getName() const { return name; }
+    const string& getName() const { return name; }
     int getRewardMoney() const { return rewardMoney; }
     int getRewardChaos() const { return rewardChaos; }
     int getHungerCost() const { return hungerCost; }
@@ -97,7 +97,7 @@ private:
     int actionPoints;
 
 public:
-    CatOverlord(int startMoney = 50, int startChaos = 10, int startAP = 6);
+    explicit CatOverlord(int startMoney = 50, int startChaos = 10, int startAP = 6);
     friend ostream& operator<<(ostream& os, const CatOverlord& o);
 
     void addCat(const Cat& c);

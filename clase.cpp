@@ -33,7 +33,7 @@ ostream& operator<<(ostream& os, const Cat& c) {
     return os;
 }
 
-string Cat::getName() const { return name; }
+const string& Cat::getName() const { return name; }
 int Cat::getEvilness() const { return evilness; }
 int Cat::getCuteness() const { return cuteness; }
 int Cat::getHunger() const { return hunger; }
@@ -54,7 +54,7 @@ void Cat::trainEvil(int cant) {
 void Cat::pet(int cant) {
     cuteness += cant;
     if (cuteness > 100) cuteness = 100;
-    cout << name << " got some pets :3 Cuteness: " << cuteness << endl;
+    cout << name << " got some pets. Cuteness: " << cuteness << endl;
 }
 
 void Cat::rewardLoyalty(int cant) {
@@ -76,18 +76,18 @@ void Humanity::increaseSuspicion(int val) {
     suspicion += val;
     if (suspicion > maxSuspicion) suspicion = maxSuspicion;
 
-    cout << " Human suspicion increased: "
+    cout << "Human suspicion increased: "
          << suspicion << "/" << maxSuspicion << endl;
 
     if (isGameOver())
-        cout << " Humans discovered the cat conspiracy! Game Over :( \n";
+        cout << "Humans discovered the cat conspiracy! Game Over!" << endl;
 }
 
 void Humanity::decreaseSuspicion(int val) {
     suspicion -= val;
     if (suspicion < 0) suspicion = 0;
 
-    cout << " Suspicion lowered: "
+    cout << "Suspicion lowered: "
          << suspicion << "/" << maxSuspicion << endl;
 }
 
@@ -103,8 +103,8 @@ ostream& operator<<(ostream& os, const Humanity& h) {
 //                                    :3
 
 Mission::Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, MissionType t)
-: name(n), difficulty(diff), rewardMoney(money), rewardChaos(chaos), hungerCost(hunger),
-  minEvilness(minE), minLoyalty(minL), type(t) {}
+    : name(n), difficulty(diff), rewardMoney(money), rewardChaos(chaos), hungerCost(hunger),
+      minEvilness(minE), minLoyalty(minL), type(t) {}
 
 bool Mission::attempt(Cat& c) const {
     return c.getEvilness() >= minEvilness && c.getLoyalty() >= minLoyalty;
@@ -156,16 +156,18 @@ void CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
             chaosPoints += m.getRewardChaos();
             cout << "Mission SUCCESS! " << cats[i].getName() << " completed " << m.getName() << endl;
         } else {
-            cout << "Mission FAILED! " << cats[i].getName() << " could not complete " << m.getName() << endl;
             humans.increaseSuspicion(m.getDifficulty());
+            cout << "Mission FAILED! " << cats[i].getName() << " could not complete " << m.getName() << endl;
         }
-    } else { // PR mission
+    } else{ // PR mission
         if (success) {
-            cout << "PR Mission SUCCESS! " << cats[i].getName() << " lowered suspicion with " << m.getName() << endl;
             humans.decreaseSuspicion(m.getDifficulty());
+            cout << "PR Mission SUCCESS! " << cats[i].getName()
+                 << " lowered suspicion with " << m.getName() << endl;
         } else {
-            cout << "PR Mission FAILED! " << cats[i].getName() << "'s attempt at " << m.getName() << " backfired!" << endl;
             humans.increaseSuspicion(m.getDifficulty() * 2);
+            cout << "PR Mission FAILED! " << cats[i].getName()
+                 << "'s attempt at " << m.getName() << " backfired!" << endl;
         }
     }
 
@@ -173,10 +175,8 @@ void CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
     actionPoints -= 2;
 }
 
-
-
 void CatOverlord::nextDay() {
-    actionPoints = 6;
+    actionPoints = 6; // reset action points daily
     for (auto &c : cats)
         c.increaseHunger(15);
 }
@@ -186,7 +186,8 @@ int CatOverlord::getChaos() const { return chaosPoints; }
 int CatOverlord::getActionPoints() const { return actionPoints; }
 
 ostream& operator<<(ostream& os, const CatOverlord& o) {
-    os << "Money: " << o.money << " | Chaos: " << o.chaosPoints << " | AP: " << o.actionPoints << "\n";
+    os << "Money: " << o.money << " | Chaos: " << o.chaosPoints
+       << " | AP: " << o.actionPoints << "\n";
     for (size_t i = 0; i < o.cats.size(); i++)
         os << "[" << i << "] " << o.cats[i] << "\n";
     return os;
