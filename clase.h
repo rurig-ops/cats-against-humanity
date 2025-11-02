@@ -34,6 +34,7 @@ public:
     void rewardLoyalty(int cant);
     void increaseHunger(int cant);
 
+    void decreaseEvilness(int amount);
 };
 
 //                                           :3
@@ -73,7 +74,6 @@ private:
 
 public:
     Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, int minC, MissionType t);
-
     [[nodiscard]]const string& getName() const { return name; }
     [[nodiscard]]int getRewardMoney() const { return rewardMoney; }
     [[nodiscard]]int getRewardChaos() const { return rewardChaos; }
@@ -117,6 +117,9 @@ public:
     void sortCatsByEvilness();
 
     bool checkEvilnessGameOver();
+
+    void calmCat(int index, int amount);
+    void calmCatInteractive();
 };
 
 #endif

@@ -29,9 +29,9 @@ int main() {
         overlord.printCats();
         cout << humans << endl;
 
-        cout << "\nChoose action:\n1. Feed a cat\n2. Encourage a cat\n3. Train cat Evilness\n4. Send cat on mission\n5. Next day\n6. Quit\n> ";
+        cout << "\nChoose action:\n1. Feed a cat\n2. Encourage a cat\n3. Train cat Evilness\n4. Send cat on mission\n5. Next day\n6. Take cat to yoga\n7. Quit\n> ";
         int choice;
-        cin >> choice;
+        cin >>choice;
 
         switch (choice) {
             case 1: overlord.feedCatInteractive(); break;
@@ -41,7 +41,8 @@ int main() {
                     gameEnd = true;} break;
             case 4: overlord.sendOnMissionInteractive(humans); break;
             case 5: overlord.nextDay(); cout << "Day advanced.\n"; break;
-            case 6: gameEnd = true; break;
+            case 6: overlord.calmCatInteractive(); break;
+            case 7: gameEnd = true; break;
             default: cout << "Invalid choice!\n"; break;
         }
 

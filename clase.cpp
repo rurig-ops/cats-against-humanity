@@ -64,6 +64,11 @@ void Cat::increaseHunger(int cant) {
     if (hunger > 100) hunger = 100;
 }
 
+void Cat::decreaseEvilness(int amount) {
+    evilness -= amount;
+    if (evilness < 0) evilness = 0;
+}
+
 //                                             :3
 
 Humanity::Humanity(int start, int maxS) : suspicion(start), maxSuspicion(maxS) {}
@@ -338,6 +343,34 @@ bool CatOverlord::checkEvilnessGameOver() {
     }
     return false;
 }
+
+void CatOverlord::calmCatInteractive() {
+    if (actionPoints <= 0) {
+        cout << "Not enough AP to calm the cat!\n";
+        return;
+    }
+
+    int index, amount;
+    cout << "Select cat index to calm: ";
+    cin >> index;
+    if (index < 0 || index >= (int)cats.size()) {
+        cout << "Invalid cat index!\n";
+        return;
+    }
+
+    cout << "Amount to reduce evilness: ";
+    cin >> amount;
+    if (amount < 0) amount = 0;
+
+    cats[index].decreaseEvilness(amount); // folosește noua funcție din Cat
+
+    cout << cats[index].getName() << " has calmed down. Evilness: "
+         << cats[index].getEvilness() << "\n";
+
+    actionPoints--;
+}
+
+
 
 
 
