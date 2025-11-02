@@ -201,7 +201,13 @@ void CatOverlord::trainCatEvil(int i, int cant) {
 ostream& operator<<(ostream& os, const CatOverlord& o) {
     os << "Money: " << o.money << " | Chaos: " << o.chaosPoints
        << " | AP: " << o.actionPoints << "\n";
-    for (size_t i = 0; i < o.cats.size(); i++)
-        os << "[" << i << "] " << o.cats[i] << "\n";
+    for (size_t i = 0; i < o.cats.size(); i++) {
+        const Cat& c = o.cats[i];
+        os << "[" << i << "] " << c.getName()
+        << " | Evil: " << c.getEvilness()
+       << " | Cute: " << c.getCuteness()
+       << " | Hunger: " << c.getHunger()
+       << " | Loyalty: " << c.getLoyalty() << "\n";
+    }
     return os;
 }
