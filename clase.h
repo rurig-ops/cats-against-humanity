@@ -113,6 +113,8 @@ public:
     void encourageCatInteractive();
     void trainCatEvilInteractive();
     void sendOnMissionInteractive(Humanity& humans);
+
+    void sortCatsByEvilness();
 };
 
 #endif

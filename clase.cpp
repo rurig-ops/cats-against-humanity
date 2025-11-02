@@ -1,5 +1,7 @@
 #include <iostream>
 #include "clase.h"
+
+#include <functional>
 using namespace std;
 
 //                                    :3
@@ -313,6 +315,20 @@ void CatOverlord::sendOnMissionInteractive(Humanity& humans) {
         default: cout << "Invalid mission choice!\n"; break;
     }
 }
+
+void CatOverlord::sortCatsByEvilness() {
+    int n = cats.size();
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (cats[j].getEvilness() > cats[j + 1].getEvilness()) {
+                Cat temp = cats[j];
+                cats[j] = cats[j + 1];
+                cats[j + 1] = temp;
+            }
+        }
+    }
+}
+
 
 
 

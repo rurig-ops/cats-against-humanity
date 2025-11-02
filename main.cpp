@@ -19,6 +19,7 @@ int main() {
     bool gameEnd = false;
     while (!gameEnd) {
         overlord.printStatus();
+        overlord.sortCatsByEvilness();
         overlord.printCats();
         cout << humans << endl;
 
