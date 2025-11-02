@@ -329,6 +329,16 @@ void CatOverlord::sortCatsByEvilness() {
     }
 }
 
+bool CatOverlord::checkEvilnessGameOver() {
+    for (const auto& c : cats) {
+        if (c.getEvilness() >= 100) {
+            cout << "Game Over! " << c.getName() << " became too evil!" << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 

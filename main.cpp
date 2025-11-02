@@ -30,7 +30,9 @@ int main() {
         switch (choice) {
             case 1: overlord.feedCatInteractive(); break;
             case 2: overlord.encourageCatInteractive(); break;
-            case 3: overlord.trainCatEvilInteractive(); break;
+            case 3: overlord.trainCatEvilInteractive();
+                if (overlord.checkEvilnessGameOver()) {
+                    gameEnd = true;} break;
             case 4: overlord.sendOnMissionInteractive(humans); break;
             case 5: overlord.nextDay(); cout << "Day advanced.\n"; break;
             case 6: gameEnd = true; break;

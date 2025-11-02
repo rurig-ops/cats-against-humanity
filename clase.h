@@ -115,6 +115,8 @@ public:
     void sendOnMissionInteractive(Humanity& humans);
 
     void sortCatsByEvilness();
+
+    bool checkEvilnessGameOver();
 };
 
 #endif
