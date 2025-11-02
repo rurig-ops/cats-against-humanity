@@ -70,10 +70,11 @@ private:
     int hungerCost;
     int minEvilness;
     int minLoyalty;
+    int minCuteness;
     MissionType type;
 
 public:
-    Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, MissionType t);
+    Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, int minC, MissionType t);
 
     const string& getName() const { return name; }
     int getRewardMoney() const { return rewardMoney; }
@@ -104,7 +105,7 @@ public:
     void feedCat(int index, int cant);
     void encourageCat(int index, int cant);
     void nextDay();
-    void sendOnMission(int index, const Mission& m, Humanity& humans);
+    bool sendOnMission(int index, const Mission& m, Humanity& humans);
 
     int getMoney() const;
     int getChaos() const;

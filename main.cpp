@@ -3,90 +3,84 @@
 using namespace std;
 
 int main() {
-
-    // making the cats
+    //pisici
     Cat cat1("Magu", 50, 80, 30, 80);
     Cat cat2("Dracat Mihaita", 80, 20, 60, 50);
     Cat cat3("Lucius", 30, 90, 20, 90);
 
-    cout << "List of cats" << endl;
-    cout << cat1 << endl;
-    cout << cat2 << endl;
-    cout << cat3 << endl << endl;
-
-    cat1.feed(20);
-    cat2.trainEvil(15);
-    cat3.pet(25);
-    cat1.rewardLoyalty(10);
-    cat2.increaseHunger(30);
-
-    cout << "\n Cats stats" << endl;
-    cout << cat1 << endl;
-    cout << cat2 << endl;
-    cout << cat3 << endl << endl;
-
-    CatOverlord overlord(100, 0);
+    //overlord
+    CatOverlord overlord;
     overlord.addCat(cat1);
     overlord.addCat(cat2);
     overlord.addCat(cat3);
 
-    cout << "\n Overlord stats" << endl;
-    cout << overlord << endl;
-
-    overlord.feedCat(0, 15);       // hranim Magu
-    overlord.encourageCat(1, 20);  // loialitate pt Dracat Mihaita
-
-    cout << "\n Overlord stats " << endl;
-    cout << overlord << endl;
-
-    // making evil missions
-    Mission bankHeist("Bank Heist",50, 500, 30, 25,60, 40,
-        Mission::EVIL);
-
-    Mission pizzaSteal("Steal Pizza",10, 20, 5, 5,5, 10,
-        Mission::EVIL);
-
-    // making good missions
-    Mission cuteVideo("Make Funny Cat Compilation",15, 0, 0, 5,10, 20,
-        Mission::PR);
-
-    Mission tiktokMission("TikTok Cute Chaos",30, 0, 5, 10,20, 30,
-        Mission::PR);
-
-    cout << "\n Missions " << endl;
-    cout << bankHeist << endl;
-    cout << pizzaSteal << endl;
-    cout << cuteVideo << endl;
-    cout << tiktokMission << endl << endl;
-
+    //humanity
     Humanity humans;
 
-    cout << humans << endl << endl;
+    //misiuni
+    Mission bankHeist("Steal Socks", 15, 5, 30, 25, 35, 10, 0, Mission::EVIL);
+    Mission pizzaSteal("Infiltrate the government", 45, 40, 5, 5, 66, 50, 0, Mission::EVIL);
+    Mission funnyCompilation("Funny Cat Compilation", 5, 0, 0, 5, 0, 0, 20, Mission::PR);
 
-    overlord.sendOnMission(0, bankHeist, humans);
-    overlord.sendOnMission(1, pizzaSteal, humans);
-    overlord.sendOnMission(2, cuteVideo, humans);
+    bool gameEnd = false;
+    while (gameEnd == false) {
+        cout << "\n Cat Overlord Status " << endl;
+        cout << overlord << endl;
+        cout << humans << endl;
 
-    cout << "\n Overlord stats" << endl;
-    cout << overlord << endl;
+        cout << "\nChoose action:\n";
+        cout << "1. Feed a cat\n2. Encourage a cat\n3. Send cat on mission\n4. Next day\n5. Quit\n> ";
 
-    cout << humans << endl;
+        int choice;
+        cin >> choice;
 
-    if (humans.isGameOver()) return 0;
+        int index, amount;
+        switch (choice) {
+            case 1:
+                cout << "Select cat index to feed: ";
+                cin >> index;
+                cout << "Amount to feed: ";
+                cin >> amount;
+                overlord.feedCat(index, amount);
+                break;
+            case 2:
+                cout << "Select cat index to encourage: ";
+                cin >> index;
+                cout << "Amount to increase loyalty: ";
+                cin >> amount;
+                overlord.encourageCat(index, amount);
+                break;
+            case 3:
+                cout << "Select cat index to send on mission: ";
+                cin >> index;
+                cout << "Select mission:\n1. Bank Heist\n2. Steal Pizza\n3. Funny Compilation\n> ";
+                int missionChoice;
+                cin >> missionChoice;
+                if (missionChoice == 1)
+                    gameEnd = overlord.sendOnMission(index, bankHeist, humans);
+                else if (missionChoice == 2)
+                    gameEnd = overlord.sendOnMission(index, pizzaSteal, humans);
+                else if (missionChoice == 3)
+                    gameEnd = overlord.sendOnMission(index, funnyCompilation, humans);
+                break;
+            case 4:
+                overlord.nextDay();
+                cout << "Day advanced. Action points reset and hunger increased.\n";
+                break;
+            case 5:
+                gameEnd = true;
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
 
-    overlord.nextDay();
+        if (humans.isGameOver()) {
+            cout << "Game Over! Humans discovered the cat conspiracy!\n";
+            break;
+        }
+    }
 
-    cout << "\n Overlord stats" << endl;
-    cout << overlord << endl;
-
-    Cat copyCat = cat1;
-    CatOverlord copyOverlord = overlord;
-
-    cout << "\n Cat clone " << endl;
-    cout << copyCat << endl;
-
-    cout << "\n Overlord clone " << endl;
-    cout << copyOverlord << endl;
+    cout << ":3";
 
     return 0;
 }

@@ -102,12 +102,15 @@ ostream& operator<<(ostream& os, const Humanity& h) {
 
 //                                    :3
 
-Mission::Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, MissionType t)
+Mission::Mission(const string& n, int diff, int money, int chaos, int hunger, int minE, int minL, int minC, MissionType t)
     : name(n), difficulty(diff), rewardMoney(money), rewardChaos(chaos), hungerCost(hunger),
-      minEvilness(minE), minLoyalty(minL), type(t) {}
+      minEvilness(minE), minLoyalty(minL), minCuteness(minC), type(t) {}
 
 bool Mission::attempt(Cat& c) const {
-    return c.getEvilness() >= minEvilness && c.getLoyalty() >= minLoyalty;
+    if (type == EVIL)
+        return c.getEvilness() >= minEvilness && c.getLoyalty() >= minLoyalty;
+    else
+        return c.getLoyalty() >= minLoyalty && c.getCuteness() >= minCuteness;
 }
 
 ostream& operator<<(ostream& os, const Mission& m) {
@@ -131,6 +134,7 @@ void CatOverlord::addCat(const Cat& c) {
 void CatOverlord::feedCat(int i, int cant) {
     if (actionPoints <= 0) return;
     cats[i].feed(cant);
+    money -= cant;
     actionPoints--;
 }
 
@@ -140,15 +144,17 @@ void CatOverlord::encourageCat(int i, int cant) {
     actionPoints--;
 }
 
-void CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
+bool CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
     if (actionPoints < 2) {
         cout << "Not enough action points to send a cat on a mission!" << endl;
-        return;
+        return false;
     }
 
     bool success = m.attempt(cats[i]);
-
     cout << cats[i].getName() << " was sent on mission: " << m.getName() << "..." << endl;
+
+    actionPoints -= 2;
+    cats[i].increaseHunger(m.getHungerCost());
 
     if (m.getType() == Mission::EVIL) {
         if (success) {
@@ -159,7 +165,7 @@ void CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
             humans.increaseSuspicion(m.getDifficulty());
             cout << "Mission FAILED! " << cats[i].getName() << " could not complete " << m.getName() << endl;
         }
-    } else{ // PR mission
+    } else { // PR mission
         if (success) {
             humans.decreaseSuspicion(m.getDifficulty());
             cout << "PR Mission SUCCESS! " << cats[i].getName()
@@ -171,8 +177,16 @@ void CatOverlord::sendOnMission(int i, const Mission& m, Humanity& humans) {
         }
     }
 
-    cats[i].increaseHunger(m.getHungerCost());
-    actionPoints -= 2;
+    if (humans.isGameOver()) {
+        cout << "Game Over! Humans discovered the cat conspiracy!" << endl;
+        return true;
+    }
+    if (chaosPoints >= 100) {
+        cout << "You won! Chaos has reached maximum! Congratulations!" << endl;
+        return true;
+    }
+
+    return false;
 }
 
 void CatOverlord::nextDay() {
