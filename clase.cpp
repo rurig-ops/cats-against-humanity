@@ -362,7 +362,7 @@ void CatOverlord::calmCatInteractive() {
     cin >> amount;
     if (amount < 0) amount = 0;
 
-    cats[index].decreaseEvilness(amount); // folosește noua funcție din Cat
+    cats[index].decreaseEvilness(amount);
 
     cout << cats[index].getName() << " has calmed down. Evilness: "
          << cats[index].getEvilness() << "\n";
